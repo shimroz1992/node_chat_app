@@ -21,9 +21,10 @@ io.on('connection', (socket) =>{
 
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined chat room'));
 
-  socket.on('createMessage', function(msg){
+  socket.on('createMessage', function(msg, callback){
     console.log('new message created', msg);
-    socket.emit('newMessage', generateMessage(msg.from, msg.text));
+    io.emit('newMessage', generateMessage(msg.from, msg.text));
+    callback('This is from server.');
     // socket.broadcast.emit('newMessage', {
     // 	from: msg.from,
     // 	text: msg.text,
